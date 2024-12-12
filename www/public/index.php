@@ -3,6 +3,7 @@
 use app\controllers\HomeController;
 use app\controllers\PoolController;
 use app\controllers\GiftController;
+use app\controllers\TicketController;
 use core\Router;
 
 spl_autoload_register(function($class) {
@@ -19,6 +20,7 @@ $router->add('/', [new HomeController(), 'index']);
 $router->add('/api/v1/pool', [new PoolController(), 'index']);
 $router->add('/api/v1/pool/create', [new PoolController(), 'store']);
 $router->add('/api/v1/gift/create', [new GiftController(), 'store']);
+$router->add('/api/v1/ticket/create', [new TicketController(), 'store']);
 
 
 // Get the requested URL
