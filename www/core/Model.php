@@ -27,6 +27,7 @@ class Model
             ? static::update($tableName, $data)
             : static::insert($tableName, $data);
         $stmt = $this->db->prepare($query);
+        
         static::bindParams($stmt, $data, $updateID);
 
         // Execute the statements

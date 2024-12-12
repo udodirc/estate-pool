@@ -10,6 +10,7 @@ class Validation
         $data = [];
         // Check if POST data is received
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $_POST = json_decode(file_get_contents('php://input'), true);
             foreach ($validationRules as $field => $rules) {
                 $fieldValue = $_POST[$field] ?? '';
 

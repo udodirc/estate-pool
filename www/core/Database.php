@@ -11,8 +11,8 @@ class Database {
 
     private string $host = 'localhost';  // DB host
     private string $dbname = 'estatepool'; // DB name
-    private string $username = 'test'; // DB username
-    private string $password = 'test'; // DB password
+    private string $username = 'estatepool'; // DB username
+    private string $password = 'password'; // DB password
 
     private function __construct() {
         try {
