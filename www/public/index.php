@@ -5,6 +5,7 @@ use app\controllers\PoolController;
 use app\controllers\GiftController;
 use app\controllers\TicketController;
 use app\controllers\UserController;
+use app\controllers\BalanceController;
 use core\Router;
 
 spl_autoload_register(function($class) {
@@ -23,7 +24,7 @@ $router->add('/api/v1/pool/create', [new PoolController(), 'store']);
 $router->add('/api/v1/gift/create', [new GiftController(), 'store']);
 $router->add('/api/v1/ticket/create', [new TicketController(), 'store']);
 $router->add('/api/v1/user/create', [new UserController(), 'store']);
-
+$router->add('/api/v1/balance/create', [new BalanceController(), 'store']);
 
 // Get the requested URL
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
