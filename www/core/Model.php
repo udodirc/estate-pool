@@ -21,17 +21,31 @@ class Model
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function fetchOne(string $query): object|false
+    {
+        $result = $this->fetch($query);
+
+        return ($result) ? $result[0] : false;
+    }
+
     public function save(string $tableName, array $data, int $updateID = 0): bool
     {
         $query = ($updateID > 0)
             ? static::update($tableName, $data)
             : static::insert($tableName, $data);
+
+            // Execute the statements
+        return $this->store($query, $data, $updateID);
+    }
+
+    public function store(string $query, array $data, int $updateID): bool
+    {
         $stmt = $this->db->prepare($query);
-        
+
         static::bindParams($stmt, $data, $updateID);
 
         // Execute the statements
-        return $stmt->execute();
+        return $stmt->execute();    
     }
 
     public static function bindParams(PDOStatement $stmt, array $data, int $updateID = 0): void
@@ -53,13 +67,13 @@ class Model
 
         if (!empty($data)) {
             $query = "INSERT INTO `{$tableName}` ";
-            $lastElement = end($data);
+            $lastElement = array_key_last($data);
             $fields = "";
             $values = "";
 
             foreach ($data as $field => $value) {
-                $fields.= ($value == $lastElement) ? "`{$field}`" : "`{$field}`, ";
-                $values.= ($value == $lastElement) ? ":{$field}" : ":{$field}, ";
+                $fields.= ($field == $lastElement) ? "`{$field}`" : "`{$field}`, ";
+                $values.= ($field == $lastElement) ? ":{$field}" : ":{$field}, ";
             }
 
             $query.= "({$fields}) VALUES ({$values})";
