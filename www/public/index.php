@@ -6,6 +6,7 @@ use app\controllers\GiftController;
 use app\controllers\TicketController;
 use app\controllers\UserController;
 use app\controllers\BalanceController;
+use app\controllers\UserBalanceController;
 use core\Router;
 
 spl_autoload_register(function($class) {
@@ -25,6 +26,7 @@ $router->add('/api/v1/gift/create', [new GiftController(), 'store']);
 $router->add('/api/v1/ticket/create', [new TicketController(), 'store']);
 $router->add('/api/v1/user/create', [new UserController(), 'store']);
 $router->add('/api/v1/balance/create', [new BalanceController(), 'store']);
+$router->add('/api/v1/user/balance', [new UserBalanceController(), 'store']);
 
 // Get the requested URL
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
