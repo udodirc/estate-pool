@@ -4,6 +4,7 @@ namespace app\controllers;
 use core\Controller;
 use core\Validation;
 use app\models\PoolModel;
+use JetBrains\PhpStorm\NoReturn;
 
 class PoolController extends Controller
 {
@@ -11,11 +12,6 @@ class PoolController extends Controller
 
     public function __construct() {
         $this->pool = new PoolModel();
-    }
-
-    public function index(): void
-    {
-        var_dump(true);
     }
 
     #[NoReturn] public function store(): void
@@ -35,6 +31,24 @@ class PoolController extends Controller
             if ($this->pool->save($this->pool->tableName, $data['data'])) {
                 $response['status'] = 'success';
             }
+        } else {
+            $response['errors'] = $data['errors'];
+        }
+
+        $this->json($response);
+    }
+
+    #[NoReturn] public function inform(): void
+    {
+        $response['status'] = 'fail';
+        $validationRules = [
+            'id_pool' => ['required', 'is_numeric']
+        ];
+
+        $data = Validation::validate($validationRules);
+
+        if (empty($data['errors'])) {
+            $response = $this->pool->inform($data['data']['id_pool']);
         } else {
             $response['errors'] = $data['errors'];
         }
