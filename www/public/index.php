@@ -21,7 +21,7 @@ $router = new Router();
 
 // Define routes
 $router->add('/', [new HomeController(), 'index']);
-$router->add('/api/v1/pool', [new PoolController(), 'index']);
+$router->add('/api/v1/pool/inform', [new PoolController(), 'inform']);
 $router->add('/api/v1/pool/create', [new PoolController(), 'store']);
 $router->add('/api/v1/gift/create', [new GiftController(), 'store']);
 $router->add('/api/v1/ticket/create', [new TicketController(), 'store']);
