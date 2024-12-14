@@ -26,6 +26,7 @@ $router->add('/api/v1/pool/create', [new PoolController(), 'store']);
 $router->add('/api/v1/gift/create', [new GiftController(), 'store']);
 $router->add('/api/v1/ticket/create', [new TicketController(), 'store']);
 $router->add('/api/v1/ticket/purchase', [new UserTicketController(), 'store']);
+$router->add('/api/v1/ticket/inform', [new UserTicketController(), 'inform']);
 $router->add('/api/v1/user/create', [new UserController(), 'store']);
 $router->add('/api/v1/balance/create', [new BalanceController(), 'store']);
 $router->add('/api/v1/user/balance', [new UserBalanceController(), 'store']);

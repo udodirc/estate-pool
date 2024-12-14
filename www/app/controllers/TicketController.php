@@ -4,6 +4,7 @@ namespace app\controllers;
 use core\Controller;
 use core\Validation;
 use app\models\TicketModel;
+use JetBrains\PhpStorm\NoReturn;
 
 class TicketController extends Controller 
 {

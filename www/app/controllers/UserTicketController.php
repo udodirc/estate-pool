@@ -79,4 +79,23 @@ class UserTicketController extends Controller
 
         $this->json($response);
     }
+
+    #[NoReturn] public function inform(): void
+    {
+        $validationRules = [
+            'id_pool' => ['required', 'is_numeric'],
+            'id_user' => ['required', 'is_numeric']
+        ];
+
+        $data = Validation::validate($validationRules);
+
+        if (empty($data['errors'])) {
+            $response['success'] = true;
+            $response['data'] = $this->userTicketModel->inform($data['data']['id_user'], $data['data']['id_pool']);
+        } else {
+            $response['errors'] = $data['errors'];
+        }
+
+        $this->json($response);
+    }
 }
