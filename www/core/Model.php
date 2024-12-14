@@ -88,7 +88,7 @@ class Model
 
         if (!empty($data)) {
             $query = "UPDATE `{$tableName}` SET ";
-            $lastElement = end($data);
+            $lastElement = array_key_last($data);
             $fields = "";
 
             foreach ($data as $field => $value) {
@@ -144,5 +144,32 @@ class Model
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function callProcedure(array $data, string $procedure, $output = false): bool
+    {
+        $query = self::formProcedureQuery($procedure, $data, $output);
+        $stmt = $this->db->prepare($query);
+
+        return (bool)$stmt->execute($data);
+    }
+
+    private static function formProcedureQuery(string $procedure, array $data, $output = false): string
+    {
+        $query = "";
+
+        if (!empty($data)) {
+            $query = "CALL `{$procedure}` (";
+            $lastElement = array_key_last($data);
+            $fields = "";
+
+            foreach ($data as $field => $value) {
+                $fields.= ($field == $lastElement) ? ":{$field}" : ":{$field}, ";
+            }
+
+            $query.= $fields.(($output) ? ", @result)" : ")");
+        }
+
+        return $query;
     }
 }

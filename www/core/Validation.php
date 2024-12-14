@@ -16,7 +16,7 @@ class Validation
 
                 foreach ($rules as $rule) {
                     if ($rule == "required") {
-                        if (empty($fieldValue)) {
+                        if ($fieldValue == '') {
                             $errors[$field] = "Поле {$field} пустое!";
                         }
                     }
